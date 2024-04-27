@@ -18,3 +18,11 @@ export const printHelp = () => {
     -t [API_KEY] to save token
   `))
 }
+
+export const printWeather = (res) => {
+  console.log(dedent(`${chalk.bgGreen('Weather')} in city ${res.name}
+  ${res.weather[0].description}
+  Temperature ${res.main.temp} (feel like: ${res.main.feals_like})
+  Humidity ${res.main.humidity} %
+  Wind ${res.wind.speed}`)) 
+}
