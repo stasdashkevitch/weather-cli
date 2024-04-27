@@ -13,7 +13,22 @@ const saveToken = async (token) => {
     await saveKeyValue(TOKEN_DICTIONARY.token, token)
     printSuccess('Token saved')
   } catch (e) {
-    printError(e.message) 
+    printError(e.message)
+  }
+}
+
+const getForcast = async () => {
+  try {
+    const weather = await getWeather('Moscow')
+    console.log(weather)
+  } catch (e) {
+    if (e?.response?.status == 404) {
+      printError('Invalid city') 
+    } else if (e?.response?.status == 401) {
+      printError('Invalid token')
+    } else {
+      printError(e.message)
+    }
   }
 }
 
@@ -26,7 +41,7 @@ const initCli = () => {
   } else if (args.t) {
     return saveToken(args.t)
   }
-  console.log(args)
+  getForcast()
 }
 
 initCli()
